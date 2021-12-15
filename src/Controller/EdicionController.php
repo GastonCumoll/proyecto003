@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 /**
  * @Route("/edicion")
@@ -25,23 +26,23 @@ class EdicionController extends AbstractController
             'edicions' => $edicionRepository->findAll(),
         ]);
     }
-
+    
     /**
      * @Route("/new", name="edicion_new", methods={"GET", "POST"})
      */
     public function new(Request $request, EntityManagerInterface $entityManager): Response
-    {   
-        $edicion = new Edicion();
-        $hora=date('l jS \of F Y h:i:s A');
-        $form = $this->createForm(EdicionType::class, $edicion, ['fecha' => $hora]);
+    {
+            $session=$request->getSession();
+            $token=$session->get('objetoP');
         
-        $form->get('fechaYHoraCreacion')->setData($hora);
-        $form->handleRequest($request);
-
+            $edicion=new Edicion();
+            $form=$this->createForm(EdicionType::class, $edicion,);
+            $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            
             $entityManager->persist($edicion);
             $entityManager->flush();
-
+            
             return $this->redirectToRoute('edicion_index', [], Response::HTTP_SEE_OTHER);
         }
 

@@ -20,7 +20,7 @@ class Edicion
     private $id;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="datetime")
      */
     private $fechaDeEdicion;
 
@@ -30,14 +30,14 @@ class Edicion
     private $cantidadImpresiones;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="datetime")
      */
     private $fechaYHoraCreacion;
 
     
 
     /**
-     * @ORM\ManyToOne(targetEntity=Publicacion::class, inversedBy="ediciones")
+     * @ORM\ManyToOne(targetEntity=Publicacion::class, inversedBy="edidicones")
      * @ORM\JoinColumn(nullable=false)
      */
     private $publicacion;
@@ -48,7 +48,10 @@ class Edicion
      */
     private $usuarioCreador;
 
-   
+    public function __toString() {
+        return $this->name;
+    }
+    
 
     public function getId(): ?int
     {
@@ -79,24 +82,19 @@ class Edicion
         return $this;
     }
 
-    public function __toString(){
-        return $this->nombre;
-    }
-
     public function getFechaYHoraCreacion(): ?\DateTimeInterface
     {
         return $this->fechaYHoraCreacion;
     }
 
     public function setFechaYHoraCreacion(\DateTimeInterface $fechaYHoraCreacion): self
-    { 
+    {
         $this->fechaYHoraCreacion = $fechaYHoraCreacion;
 
         return $this;
     }
 
 
-    
 
     public function getPublicacion(): ?Publicacion
     {

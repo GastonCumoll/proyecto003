@@ -36,7 +36,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Column(type="string")
      */
     private $password;
-
+    
+    private $plainPassword;
     /**
      * @ORM\OneToMany(targetEntity=Publicacion::class, mappedBy="usuarioCreador", orphanRemoval=true)
      */
@@ -47,8 +48,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $ediciones;
 
-    
 
+
+    public function __toString() {
+        return $this->email;
+    }
     public function __construct()
     {
         $this->publicacionesDeUsuario = new ArrayCollection();
@@ -70,10 +74,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->email = $email;
 
         return $this;
-    }
-
-    public function __toString(){
-        return $this->email;
     }
 
     /**
@@ -207,6 +207,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+    
 
     
 }

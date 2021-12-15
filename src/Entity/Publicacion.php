@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-
 use App\Repository\PublicacionRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -44,11 +43,14 @@ class Publicacion
     /**
      * @ORM\OneToMany(targetEntity=Edicion::class, mappedBy="publicacion", orphanRemoval=true)
      */
-    private $ediciones;
+    private $edidicones;
 
+    public function __toString() {
+        return $this->titulo;
+    }
     public function __construct()
     {
-        $this->ediciones = new ArrayCollection();
+        $this->edidicones = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -66,10 +68,6 @@ class Publicacion
         $this->titulo = $titulo;
 
         return $this;
-    }
-
-    public function __toString(){
-        return $this->titulo;
     }
 
     public function getTipoPublicacion(): ?string
@@ -111,27 +109,27 @@ class Publicacion
     /**
      * @return Collection|Edicion[]
      */
-    public function getEdiciones(): Collection
+    public function getEdidicones(): Collection
     {
-        return $this->ediciones;
+        return $this->edidicones;
     }
 
-    public function addEdicione(Edicion $edicione): self
+    public function addEdidicone(Edicion $edidicone): self
     {
-        if (!$this->ediciones->contains($edicione)) {
-            $this->ediciones[] = $edicione;
-            $edicione->setPublicacion($this);
+        if (!$this->edidicones->contains($edidicone)) {
+            $this->edidicones[] = $edidicone;
+            $edidicone->setPublicacion($this);
         }
 
         return $this;
     }
 
-    public function removeEdicione(Edicion $edicione): self
+    public function removeEdidicone(Edicion $edidicone): self
     {
-        if ($this->ediciones->removeElement($edicione)) {
+        if ($this->edidicones->removeElement($edidicone)) {
             // set the owning side to null (unless already changed)
-            if ($edicione->getPublicacion() === $this) {
-                $edicione->setPublicacion(null);
+            if ($edidicone->getPublicacion() === $this) {
+                $edidicone->setPublicacion(null);
             }
         }
 

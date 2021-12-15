@@ -5,12 +5,17 @@ namespace App\Controller;
 use App\Entity\Publicacion;
 use App\Form\PublicacionType;
 use App\Repository\PublicacionRepository;
+use App\Entity\Edicion;
+use App\Form\EdicionType;
+use App\Repository\EdicionRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-
+use Symfony\Component\HttpFoundation\Session\Attribute\AttributeBag;
+use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\HttpFoundation\Session\Storage\NativeSessionStorage;
 /**
  * @Route("/publicacion")
  */
@@ -31,13 +36,32 @@ class PublicacionController extends AbstractController
      */
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
+        $session = new Session(new NativeSessionStorage(), new AttributeBag());
+        
+
+        
         $publicacion = new Publicacion();
-        $form = $this->createForm(PublicacionType::class, $publicacion);
+        $form = $this->createForm(PublicacionType::class, $publicacion,);
         $form->handleRequest($request);
 
+
         if ($form->isSubmitted() && $form->isValid()) {
+            //dd($publicacion);
+            //dd($form->get('cantidadImpresiones')->getData()); //atributo no mapeado (cant impresiones);
+            $edicion= new Edicion();
+            $edicion->setFechaDeEdicion($publicacion->getFechaYHora());
+            $edicion->setFechaYHoraCreacion($publicacion->getFechaYHora());
+            $edicion->setUsuarioCreador($publicacion->getUsuarioCreador());
+            $edicion->setCantidadImpresiones($form->get('cantidadImpresiones')->getData());
+            $edicion->setPublicacion($publicacion);
+
             $entityManager->persist($publicacion);
+            $entityManager->persist($edicion);
             $entityManager->flush();
+            //$id=$publicacion->getId();
+            
+
+            
 
             return $this->redirectToRoute('publicacion_index', [], Response::HTTP_SEE_OTHER);
         }
