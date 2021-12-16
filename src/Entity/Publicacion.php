@@ -46,9 +46,12 @@ class Publicacion
     private $edidicones;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Suscripcion::class, inversedBy="publicacion")
+     * @ORM\OneToMany(targetEntity=Suscripcion::class, mappedBy="publicacion", orphanRemoval=true)
      */
-    private $suscripcion;
+    private $suscripciones;
+
+
+
 
     public function __toString() {
         return $this->titulo;
@@ -56,6 +59,7 @@ class Publicacion
     public function __construct()
     {
         $this->edidicones = new ArrayCollection();
+        $this->suscripciones = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -141,15 +145,35 @@ class Publicacion
         return $this;
     }
 
-    public function getSuscripcion(): ?Suscripcion
+    /**
+     * @return Collection|Suscripcion[]
+     */
+    public function getSuscripciones(): Collection
     {
-        return $this->suscripcion;
+        return $this->suscripciones;
     }
 
-    public function setSuscripcion(?Suscripcion $suscripcion): self
+    public function addSuscripcione(Suscripcion $suscripcione): self
     {
-        $this->suscripcion = $suscripcion;
+        if (!$this->suscripciones->contains($suscripcione)) {
+            $this->suscripciones[] = $suscripcione;
+            $suscripcione->setPublicacion($this);
+        }
 
         return $this;
     }
+
+    public function removeSuscripcione(Suscripcion $suscripcione): self
+    {
+        if ($this->suscripciones->removeElement($suscripcione)) {
+            // set the owning side to null (unless already changed)
+            if ($suscripcione->getPublicacion() === $this) {
+                $suscripcione->setPublicacion(null);
+            }
+        }
+
+        return $this;
+    }
+
+
 }

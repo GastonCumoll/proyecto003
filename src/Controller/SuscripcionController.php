@@ -2,14 +2,18 @@
 
 namespace App\Controller;
 
+use DateTime;
+use DateTimeInterface;
+use App\Entity\Publicacion;
 use App\Entity\Suscripcion;
 use App\Form\SuscripcionType;
-use App\Repository\SuscripcionRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Repository\PublicacionRepository;
+use App\Repository\SuscripcionRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
  * @Route("/suscripcion")
@@ -27,11 +31,38 @@ class SuscripcionController extends AbstractController
     }
 
     /**
+     * @Route("/{id}, newsuscripcion", name="nueva_suscripcion", methods={"GET", "POST"})
+     */
+    public function newSuscripcion(SuscripcionRepository $suscripcionRepository,PublicacionRepository $publicacionRepository, Request $request, EntityManagerInterface $entityManager,$id): Response
+    {
+        $suscripcion=new Suscripcion();
+        $publicacion=$this->getDoctrine()->getRepository(Publicacion::class)->findOneBy(['id'=>$id]);
+
+        $today=new DateTime();
+        $suscripcion->setTipo($publicacion->getTipoPublicacion());
+        $suscripcion->setFechaSuscripcion($today);
+        $suscripcion->setUsuario($publicacion->getUsuarioCreador());
+        $suscripcion->setPublicacion($publicacion);
+
+        $entityManager->persist($suscripcion);
+        $entityManager->flush();
+
+
+
+        return $this->renderForm('suscripcion/index.html.twig', [
+            'suscripcions' => $suscripcionRepository->findAll(),
+        ]);
+        
+    }
+
+    /**
      * @Route("/new", name="suscripcion_new", methods={"GET", "POST"})
      */
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
+        
         $suscripcion = new Suscripcion();
+        
         $form = $this->createForm(SuscripcionType::class, $suscripcion);
         $form->handleRequest($request);
 

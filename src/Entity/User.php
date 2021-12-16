@@ -49,9 +49,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $ediciones;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Suscripcion::class, inversedBy="usuarios")
+     * @ORM\OneToMany(targetEntity=Suscripcion::class, mappedBy="usuario")
      */
-    private $suscripcion;
+    private $suscripciones;
+
 
 
 
@@ -62,6 +63,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $this->publicacionesDeUsuario = new ArrayCollection();
         $this->ediciones = new ArrayCollection();
+        $this->suscripciones = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -213,17 +215,37 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getSuscripcion(): ?Suscripcion
+    /**
+     * @return Collection|Suscripcion[]
+     */
+    public function getSuscripciones(): Collection
     {
-        return $this->suscripcion;
+        return $this->suscripciones;
     }
 
-    public function setSuscripcion(?Suscripcion $suscripcion): self
+    public function addSuscripcione(Suscripcion $suscripcione): self
     {
-        $this->suscripcion = $suscripcion;
+        if (!$this->suscripciones->contains($suscripcione)) {
+            $this->suscripciones[] = $suscripcione;
+            $suscripcione->setUsuario($this);
+        }
 
         return $this;
     }
+
+    public function removeSuscripcione(Suscripcion $suscripcione): self
+    {
+        if ($this->suscripciones->removeElement($suscripcione)) {
+            // set the owning side to null (unless already changed)
+            if ($suscripcione->getUsuario() === $this) {
+                $suscripcione->setUsuario(null);
+            }
+        }
+
+        return $this;
+    }
+
+
 
     
 
