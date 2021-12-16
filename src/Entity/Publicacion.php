@@ -45,6 +45,11 @@ class Publicacion
      */
     private $edidicones;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Suscripcion::class, inversedBy="publicacion")
+     */
+    private $suscripcion;
+
     public function __toString() {
         return $this->titulo;
     }
@@ -132,6 +137,18 @@ class Publicacion
                 $edidicone->setPublicacion(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getSuscripcion(): ?Suscripcion
+    {
+        return $this->suscripcion;
+    }
+
+    public function setSuscripcion(?Suscripcion $suscripcion): self
+    {
+        $this->suscripcion = $suscripcion;
 
         return $this;
     }
