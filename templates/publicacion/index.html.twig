@@ -10,8 +10,9 @@
             <tr>
                 <th>Id</th>
                 <th>Titulo</th>
-                <th>TipoPublicacion</th>
-                <th>FechaYHora</th>
+                <th>Tipo Publicacion</th>
+                <th>Usuario Creador</th>
+                <th>Fecha Y Hora</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -21,7 +22,9 @@
                 <td>{{ publicacion.id }}</td>
                 <td>{{ publicacion.titulo }}</td>
                 <td>{{ publicacion.tipoPublicacion }}</td>
+                <td>{{ publicacion.usuarioCreador }}</td>
                 <td>{{ publicacion.fechaYHora ? publicacion.fechaYHora|date('Y-m-d H:i:s') : '' }}</td>
+                
                 <td>
                     <a href="{{ path('publicacion_show', {'id': publicacion.id}) }}">show</a>
                     <a href="{{ path('publicacion_edit', {'id': publicacion.id}) }}">edit</a>

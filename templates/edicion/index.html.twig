@@ -9,9 +9,10 @@
         <thead>
             <tr>
                 <th>Id</th>
-                <th>FechaDeEdicion</th>
-                <th>CantidadImpresiones</th>
-                <th>FechaYHoraCreacion</th>
+                <th>Fecha De Edicion</th>
+                <th>Cantidad Impresiones</th>
+                <th>Usuario Creador</th>
+                <th>Fecha Y Hora Creacion</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -21,6 +22,7 @@
                 <td>{{ edicion.id }}</td>
                 <td>{{ edicion.fechaDeEdicion ? edicion.fechaDeEdicion|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ edicion.cantidadImpresiones }}</td>
+                <td>{{ edicion.usuarioCreador}} </td>
                 <td>{{ edicion.fechaYHoraCreacion ? edicion.fechaYHoraCreacion|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
                     <a href="{{ path('edicion_show', {'id': edicion.id}) }}">show</a>

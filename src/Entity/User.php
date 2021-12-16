@@ -48,6 +48,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $ediciones;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Suscripcion::class, inversedBy="usuarios")
+     */
+    private $suscripcion;
+
 
 
     public function __toString() {
@@ -204,6 +209,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $edicione->setUsuarioCreador(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getSuscripcion(): ?Suscripcion
+    {
+        return $this->suscripcion;
+    }
+
+    public function setSuscripcion(?Suscripcion $suscripcion): self
+    {
+        $this->suscripcion = $suscripcion;
 
         return $this;
     }

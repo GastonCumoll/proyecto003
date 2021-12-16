@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Suscripcion index{% endblock %}
+
+{% block body %}
+    <h1>Suscripcion index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Tipo</th>
+                <th>FechaSuscripcion</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for suscripcion in suscripcions %}
+            <tr>
+                <td>{{ suscripcion.id }}</td>
+                <td>{{ suscripcion.tipo }}</td>
+                <td>{{ suscripcion.fechaSuscripcion ? suscripcion.fechaSuscripcion|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('suscripcion_show', {'id': suscripcion.id}) }}">show</a>
+                    <a href="{{ path('suscripcion_edit', {'id': suscripcion.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('suscripcion_new') }}">Create new</a>
+{% endblock %}

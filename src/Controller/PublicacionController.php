@@ -46,7 +46,6 @@ class PublicacionController extends AbstractController
 
 
         if ($form->isSubmitted() && $form->isValid()) {
-            //dd($publicacion);
             //dd($form->get('cantidadImpresiones')->getData()); //atributo no mapeado (cant impresiones);
             $edicion= new Edicion();
             $edicion->setFechaDeEdicion($publicacion->getFechaYHora());
