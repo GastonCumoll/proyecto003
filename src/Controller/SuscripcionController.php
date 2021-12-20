@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use DateTime;
+use App\Entity\User;
 use DateTimeInterface;
 use App\Entity\Publicacion;
 use App\Entity\Suscripcion;
@@ -13,6 +14,7 @@ use App\Repository\SuscripcionRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\EventListener\SuscripcionSubscriber;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
@@ -37,11 +39,14 @@ class SuscripcionController extends AbstractController
     {
         $suscripcion=new Suscripcion();
         $publicacion=$this->getDoctrine()->getRepository(Publicacion::class)->findOneBy(['id'=>$id]);
+        $session=$request->getSession();
+        $idUser=$session->get('id');
+        $usuario=$this->getDoctrine()->getRepository(User::class)->findOneBy(['id'=>$idUser]);
 
         $today=new DateTime();
         $suscripcion->setTipo($publicacion->getTipoPublicacion());
         $suscripcion->setFechaSuscripcion($today);
-        $suscripcion->setUsuario($publicacion->getUsuarioCreador());
+        $suscripcion->setUsuario($usuario);
         $suscripcion->setPublicacion($publicacion);
 
         $entityManager->persist($suscripcion);
@@ -68,6 +73,7 @@ class SuscripcionController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($suscripcion);
+            
             $entityManager->flush();
 
             return $this->redirectToRoute('suscripcion_index', [], Response::HTTP_SEE_OTHER);
@@ -114,6 +120,8 @@ class SuscripcionController extends AbstractController
      */
     public function delete(Request $request, Suscripcion $suscripcion, EntityManagerInterface $entityManager): Response
     {
+        
+        
         if ($this->isCsrfTokenValid('delete'.$suscripcion->getId(), $request->request->get('_token'))) {
             $entityManager->remove($suscripcion);
             $entityManager->flush();
