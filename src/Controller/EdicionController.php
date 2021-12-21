@@ -2,15 +2,16 @@
 
 namespace App\Controller;
 
+use DateTime;
 use App\Entity\Edicion;
 use App\Form\EdicionType;
 use App\Repository\EdicionRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
  * @Route("/edicion")
@@ -39,6 +40,8 @@ class EdicionController extends AbstractController
             $form=$this->createForm(EdicionType::class, $edicion,);
             $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            $today=new DateTime();
+            $edicion->setFechaYHoraCreacion($today);
             
             $entityManager->persist($edicion);
             $entityManager->flush();

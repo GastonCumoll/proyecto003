@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New TipoPublicacion{% endblock %}
+
+{% block body %}
+    <h1>Create new TipoPublicacion</h1>
+
+    {{ include('tipo_publicacion/_form.html.twig') }}
+
+    <a href="{{ path('tipo_publicacion_index') }}">back to list</a>
+{% endblock %}

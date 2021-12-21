@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}TipoPublicacion index{% endblock %}
+
+{% block body %}
+    <h1>TipoPublicacion index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for tipo_publicacion in tipo_publicacions %}
+            <tr>
+                <td>{{ tipo_publicacion.id }}</td>
+                <td>{{ tipo_publicacion.nombre }}</td>
+                <td>
+                    <a href="{{ path('tipo_publicacion_show', {'id': tipo_publicacion.id}) }}">show</a>
+                    <a href="{{ path('tipo_publicacion_edit', {'id': tipo_publicacion.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('tipo_publicacion_new') }}">Create new</a>
+{% endblock %}

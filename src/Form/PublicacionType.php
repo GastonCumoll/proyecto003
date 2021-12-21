@@ -20,14 +20,8 @@ class PublicacionType extends AbstractType
     {
         $builder
             ->add('titulo')
-            ->add('tipoPublicacion', ChoiceType::class, [
-                'choices'  => [
-                    'Libro'=> 'Libro',
-                    'Revista'=> 'Revista',
-                    'Periodico'=> 'Periodico',
-                ],
-            ])
-            ->add('fechaYHora')
+            ->add('tipoPublicacion')
+            //->add('fechaYHora')
             ->add('usuarioCreador')
             ->add('cantidadImpresiones', TextType::class, [
                 'mapped' =>false,

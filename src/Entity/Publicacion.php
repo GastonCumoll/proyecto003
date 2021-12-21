@@ -24,13 +24,9 @@ class Publicacion
      */
     private $titulo;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $tipoPublicacion;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime",nullable=true)
      */
     private $fechaYHora;
 
@@ -49,6 +45,12 @@ class Publicacion
      * @ORM\OneToMany(targetEntity=Suscripcion::class, mappedBy="publicacion", orphanRemoval=true)
      */
     private $suscripciones;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=TipoPublicacion::class, inversedBy="publicacions")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $tipoPublicacion;
 
 
 
@@ -79,17 +81,6 @@ class Publicacion
         return $this;
     }
 
-    public function getTipoPublicacion(): ?string
-    {
-        return $this->tipoPublicacion;
-    }
-
-    public function setTipoPublicacion(string $tipoPublicacion): self
-    {
-        $this->tipoPublicacion = $tipoPublicacion;
-
-        return $this;
-    }
 
     public function getFechaYHora(): ?\DateTimeInterface
     {
@@ -171,6 +162,18 @@ class Publicacion
                 $suscripcione->setPublicacion(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getTipoPublicacion(): ?TipoPublicacion
+    {
+        return $this->tipoPublicacion;
+    }
+
+    public function setTipoPublicacion(?TipoPublicacion $tipoPublicacion): self
+    {
+        $this->tipoPublicacion = $tipoPublicacion;
 
         return $this;
     }

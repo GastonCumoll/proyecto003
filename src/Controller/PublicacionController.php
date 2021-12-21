@@ -2,19 +2,22 @@
 
 namespace App\Controller;
 
-use App\Entity\Publicacion;
-use App\Form\PublicacionType;
-use App\Repository\PublicacionRepository;
+use DateTime;
 use App\Entity\Edicion;
 use App\Form\EdicionType;
+use App\Entity\Publicacion;
+use App\Entity\Suscripcion;
+use App\Form\PublicacionType;
 use App\Repository\EdicionRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Repository\PublicacionRepository;
+use App\Repository\SuscripcionRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\Session\Attribute\AttributeBag;
 use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Session\Attribute\AttributeBag;
 use Symfony\Component\HttpFoundation\Session\Storage\NativeSessionStorage;
 /**
  * @Route("/publicacion")
@@ -24,8 +27,18 @@ class PublicacionController extends AbstractController
     /**
      * @Route("/", name="publicacion_index", methods={"GET"})
      */
-    public function index(PublicacionRepository $publicacionRepository): Response
+    public function index(PublicacionRepository $publicacionRepository,SuscripcionRepository $suscripcionRepository,Request $request): Response
     {
+        // $session=$request->getSession();
+        // $idUser=$session->get('id');
+
+        // $suscripcion=$this->getDoctrine()->getRepository(Suscripcion::class)->findOneBy(['usuario'=>$idUser]);
+        // $idSus=$suscripcion->getId();
+        // $pub=$suscripcion->getPublicacion();
+        // $idPub=$pub->getId();
+
+        //dd($idPub);
+
         return $this->render('publicacion/index.html.twig', [
             'publicacions' => $publicacionRepository->findAll(),
         ]);
@@ -46,6 +59,8 @@ class PublicacionController extends AbstractController
 
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $today=new DateTime();
+            $publicacion->setFechaYhora($today);
             //dd($form->get('cantidadImpresiones')->getData()); //atributo no mapeado (cant impresiones);
             $edicion= new Edicion();
             $edicion->setFechaDeEdicion($publicacion->getFechaYHora());

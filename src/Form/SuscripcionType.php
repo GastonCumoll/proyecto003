@@ -13,13 +13,7 @@ class SuscripcionType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('tipo',ChoiceType::class, [
-                'choices'  => [
-                    'Libro'=> 'Libro',
-                    'Revista'=> 'Revista',
-                    'Periodico'=> 'Periodico',
-                ],
-            ])
+            ->add('tipo')
             ->add('fechaSuscripcion')
             ->add('usuario')
             ->add('publicacion')

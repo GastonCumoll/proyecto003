@@ -2,10 +2,19 @@
 
 namespace App\EventListener;
 
-use App\Entity\Suscripcion;
-use Doctrine\Bundle\DoctrineBundle\EventSubscriber\EventSubscriberInterface;
+use Twig\Environment;
+use PhpParser\Comment;
 use Doctrine\ORM\Events;
+use App\Entity\Suscripcion;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Notifier\NotifierInterface;
 use Doctrine\Persistence\Event\LifecycleEventArgs;
+use Symfony\Component\Messenger\MessageBusInterface;
+use Symfony\Component\Notifier\Notification\Notification;
+use Doctrine\Bundle\DoctrineBundle\EventSubscriber\EventSubscriberInterface;
+
 
 class SuscripcionSubscriber implements EventSubscriberInterface
 {
@@ -21,11 +30,8 @@ class SuscripcionSubscriber implements EventSubscriberInterface
     {
         //aca la logica de enviar mail
         //$args= la entidad
-        dd($args);
-
 
         
-
     }
 
 

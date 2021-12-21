@@ -27,46 +27,9 @@ class UserController extends AbstractController
             'users' => $userRepository->findAll(),
         ]);
     }
-    /**
-     * @Route("/login", name="login")
-     */
-    public function login(AuthenticationUtils $authenticationUtils): Response
-    {
-        $error = $authenticationUtils->getLastAuthenticationError();
+    
 
 
-        $lastUsername = $authenticationUtils->getLastUsername();
-        
-        return $this->render('login/index.html.twig', [
-            'last_username' => $lastUsername,
-            'error'         => $error,
-        ]);
-    }
-    /**
-     * @Route("/logedIn", name="loged_in")
-     */
-    public function logedIn(AuthenticationUtils $authenticationUtils,Request $request):Response{
-        $lastUsername = $authenticationUtils->getLastUsername();
-
-        $repository=$this->getDoctrine()->getRepository(User::class);
-        $min = $repository->findOneBy(['email'=>$lastUsername]); 
-        $session=$request->getSession();
-        $session->set('name',$lastUsername);
-        $session->set('id',$min->getId());
-        
-        
-
-        
-        //dd($min);
-        // $nombre = $this->getDoctrine()->getRepository(Usuario::class);
-        // $usuario=$nombre-findBy(array('email'=>$lastUsername));
-        
-
-        return $this->render('login/logedIn.html.twig', [
-            'user' => $lastUsername,
-            'usuario' =>$min,
-        ]);
-    }
     /**
      * @Route("/new", name="user_new", methods={"GET", "POST"})
      */
@@ -142,9 +105,5 @@ class UserController extends AbstractController
     /**
      * @Route("/logout", name="app_logout", methods={"GET"})
      */
-    public function logout(): void
-    {
-        // controller can be blank: it will never be called!
-        throw new \Exception('Don\'t forget to activate logout in security.yaml');
-    }
+    
 }

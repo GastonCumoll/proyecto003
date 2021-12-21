@@ -4,6 +4,7 @@
 
 {% block body %}
 
+
     <div class="w-75 mb-2" style="margin:auto;">
         <h1 style="text-align:center" class="font-weight-bold">Publicaciones</h1>
         <div class="border border-secondary rounded p-3">
@@ -30,7 +31,12 @@
                 <td>
                     <a href="{{ path('publicacion_show', {'id': publicacion.id}) }}">show</a>
                     <a href="{{ path('publicacion_edit', {'id': publicacion.id}) }}">edit</a>
+                    {#{% if idPub != publicacion.id %}#}
                     <a href="{{ path('nueva_suscripcion', {'id': publicacion.id}) }}">suscribirse</a>
+                    {#{% endif %}#}
+                    {#{% if idPub == publicacion.id %}
+                    <a href="{{ path('publicacion_delete', {'id': publicacion.id}) }}">desuscribirse</a>
+                    {% endif %}#}
                 </td>
             </tr>
         {% else %}

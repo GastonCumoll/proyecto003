@@ -11,10 +11,11 @@ use App\Form\SuscripcionType;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\PublicacionRepository;
 use App\Repository\SuscripcionRepository;
+use App\EventListener\SuscripcionSubscriber;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use App\EventListener\SuscripcionSubscriber;
+use Symfony\Component\Notifier\Recipient\Recipient;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
@@ -35,7 +36,7 @@ class SuscripcionController extends AbstractController
     /**
      * @Route("/{id}, newsuscripcion", name="nueva_suscripcion", methods={"GET", "POST"})
      */
-    public function newSuscripcion(SuscripcionRepository $suscripcionRepository,PublicacionRepository $publicacionRepository, Request $request, EntityManagerInterface $entityManager,$id): Response
+    public function newSuscripcion(User $user,SuscripcionRepository $suscripcionRepository,PublicacionRepository $publicacionRepository, Request $request, EntityManagerInterface $entityManager,$id): Response
     {
         $suscripcion=new Suscripcion();
         $publicacion=$this->getDoctrine()->getRepository(Publicacion::class)->findOneBy(['id'=>$id]);
@@ -51,6 +52,7 @@ class SuscripcionController extends AbstractController
 
         $entityManager->persist($suscripcion);
         $entityManager->flush();
+        
 
 
 
@@ -73,8 +75,9 @@ class SuscripcionController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($suscripcion);
-            
             $entityManager->flush();
+            
+            
 
             return $this->redirectToRoute('suscripcion_index', [], Response::HTTP_SEE_OTHER);
         }
