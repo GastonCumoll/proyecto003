@@ -8,9 +8,10 @@ parameters:
 services:
     App\EventListener\SuscripcionSubscriber:
         tags:
+        
                 # these are the options required to define the entity listener
-                name: 'doctrine.orm.entity_listener'
-                event: 'postPersist'
+                name: 'doctrine.event_listener'
+                event: 'onFlush'
                 entity: 'App\Entity\Suscripcion'
         bind:
             $adminEmail: "%env(string:default:default_admin_email:ADMIN_EMAIL)%"       

@@ -45,12 +45,12 @@ class SuscripcionController extends AbstractController
         $usuario=$this->getDoctrine()->getRepository(User::class)->findOneBy(['id'=>$idUser]);
 
         $today=new DateTime();
-        $suscripcion->setTipo($publicacion->getTipoPublicacion());
         $suscripcion->setFechaSuscripcion($today);
         $suscripcion->setUsuario($usuario);
         $suscripcion->setPublicacion($publicacion);
 
         $entityManager->persist($suscripcion);
+        
         $entityManager->flush();
         
 

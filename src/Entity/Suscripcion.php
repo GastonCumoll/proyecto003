@@ -20,7 +20,7 @@ class Suscripcion
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $tipo;
 
@@ -45,7 +45,7 @@ class Suscripcion
     private $publicacion;
 
 
-
+    
     public function getId(): ?int
     {
         return $this->id;
@@ -63,7 +63,7 @@ class Suscripcion
         return $this;
     }
 
-
+    
     public function getFechaSuscripcion(): ?\DateTimeInterface
     {
         return $this->fechaSuscripcion;
