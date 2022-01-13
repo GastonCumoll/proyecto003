@@ -24,9 +24,10 @@ class Publicacion
      */
     private $titulo;
 
+    
 
     /**
-     * @ORM\Column(type="datetime",nullable=true)
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private $fechaYHora;
 

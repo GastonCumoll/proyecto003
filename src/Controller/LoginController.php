@@ -2,26 +2,16 @@
 
 namespace App\Controller;
 
-use App\Entity\User;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\HttpFoundation\Request;
+use App\Entity\User;
 
 class LoginController extends AbstractController
 {
-    /**
-     * @Route("/login", name="login")
-     */
-    public function index(): Response
-    {
-        return $this->render('login/index.html.twig', [
-            'controller_name' => 'LoginController',
-        ]);
-    }
     /**
      * @Route("/login", name="login", methods={"GET", "POST"})
      */
@@ -37,6 +27,8 @@ class LoginController extends AbstractController
             'error'         => $error,
         ]);
     }
+    
+    
     /**
      * @Route("/logedIn", name="loged_in")
      */
@@ -55,16 +47,23 @@ class LoginController extends AbstractController
         //dd($min);
         // $nombre = $this->getDoctrine()->getRepository(Usuario::class);
         // $usuario=$nombre-findBy(array('email'=>$lastUsername));
-        
+        $paginaActiva=1;
 
         return $this->render('login/logedIn.html.twig', [
             'user' => $lastUsername,
             'usuario' =>$min,
+            'paginaActiva' => $paginaActiva,
         ]);
     }
-    public function logout(): void
+
+    /**
+     * @Route("/logout", name="app_logout", methods={"GET"})
+     */
+    public function logout(): response
     {
-        // controller can be blank: it will never be called!
-        throw new \Exception('Don\'t forget to activate logout in security.yaml');
+        return $this->render('login/index.html.twig', [
+        ]);
     }
 }
+
+?>

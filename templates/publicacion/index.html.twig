@@ -1,9 +1,8 @@
-{% extends 'base.html.twig' %}
+{% extends 'base1.html.twig' %}
 
 {% block title %}Publicacion index{% endblock %}
 
 {% block body %}
-
 
     <div class="w-75 mb-2" style="margin:auto;">
         <h1 style="text-align:center" class="font-weight-bold">Publicaciones</h1>
@@ -29,11 +28,8 @@
                 <td>{{ publicacion.fechaYHora ? publicacion.fechaYHora|date('Y-m-d H:i:s') : '' }}</td>
                 
                 <td>
-                    <a href="{{ path('publicacion_show', {'id': publicacion.id}) }}">show</a>
-                    <a href="{{ path('publicacion_edit', {'id': publicacion.id}) }}">edit</a>
-                    <a href="{{ path('nueva_suscripcion', {'id': publicacion.id}) }}">suscribirse</a>
-                    
-                    
+                    <a href="{{ path('publicacion_show', {'id': publicacion.id}) }}"><button type="button" class="btn btn-outline-primary" style="width: 7rem;">Show</button></a>
+                    <a href="{{ path('publicacion_edit', {'id': publicacion.id}) }}"><button type="button" class="btn btn-outline-info" style="width: 7rem;">Edit</button></a>
                 </td>
             </tr>
         {% else %}
@@ -44,10 +40,10 @@
         </tbody>
     </table>
     <br><br>
+    <a href="{{ path('publicacion_new') }}"><button type="button" class="btn btn-outline-primary" style="width: 5rem;">Crear</button></a>
     </div>
 </div>
 
-    <a href="{{ path('publicacion_new') }}">Create new</a>
 {% endblock %}
 {% block javascripts %}
 {{ parent() }}

@@ -1,6 +1,6 @@
 {% extends 'base1.html.twig' %}
 
-{% block title %}Suscripcion index{% endblock %}
+{% block title %}Mis suscripciones{% endblock %}
 
 {% block body %}
 <div class="w-75 mb-2" style="margin:auto;">
@@ -18,7 +18,7 @@
                 </tr>
             </thead>
             <tbody>
-            {% for suscripcion in suscripcions %}
+            {% for suscripcion in suscripciones %}
                 <tr>
                     <td>{{ suscripcion.id }}</td>
                     <td>{{ suscripcion.tipoPublicacion }}</td>

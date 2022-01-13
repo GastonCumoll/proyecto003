@@ -30,7 +30,7 @@ class Log
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $publicacion;
+    private $tipoPublicacion;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -41,7 +41,6 @@ class Log
     {
         return $this->id;
     }
-    
 
     public function getTipoOperacion(): ?string
     {
@@ -67,14 +66,14 @@ class Log
         return $this;
     }
 
-    public function getPublicacion(): ?string
+    public function getTipoPublicacion(): ?string
     {
-        return $this->publicacion;
+        return $this->tipoPublicacion;
     }
 
-    public function setPublicacion(string $publicacion): self
+    public function setTipoPublicacion(string $tipoPublicacion): self
     {
-        $this->publicacion = $publicacion;
+        $this->tipoPublicacion = $tipoPublicacion;
 
         return $this;
     }

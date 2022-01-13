@@ -20,16 +20,7 @@ class Suscripcion
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $tipo;
-
-
-
-
-
-    /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private $fechaSuscripcion;
 
@@ -39,31 +30,19 @@ class Suscripcion
     private $usuario;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Publicacion::class, inversedBy="suscripciones")
+     * @ORM\ManyToOne(targetEntity=TipoPublicacion::class, inversedBy="Suscripciones")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $publicacion;
+    private $tipoPublicacion;
 
 
-    
+
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getTipo(): ?string
-    {
-        return $this->tipo;
-    }
 
-    public function setTipo(string $tipo): self
-    {
-        $this->tipo = $tipo;
-
-        return $this;
-    }
-
-    
     public function getFechaSuscripcion(): ?\DateTimeInterface
     {
         return $this->fechaSuscripcion;
@@ -88,15 +67,16 @@ class Suscripcion
         return $this;
     }
 
-    public function getPublicacion(): ?Publicacion
+    public function getTipoPublicacion(): ?TipoPublicacion
     {
-        return $this->publicacion;
+        return $this->tipoPublicacion;
     }
 
-    public function setPublicacion(?Publicacion $publicacion): self
+    public function setTipoPublicacion(?TipoPublicacion $tipoPublicacion): self
     {
-        $this->publicacion = $publicacion;
+        $this->tipoPublicacion = $tipoPublicacion;
 
         return $this;
     }
+
 }

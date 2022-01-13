@@ -29,9 +29,18 @@ class TipoPublicacion
      */
     private $publicacions;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Suscripcion::class, mappedBy="tipoPublicacion", orphanRemoval=true)
+     */
+    private $Suscripciones;
+
+
+
     public function __construct()
     {
         $this->publicacions = new ArrayCollection();
+        $this->suscripcions = new ArrayCollection();
+        $this->Suscripciones = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -49,9 +58,6 @@ class TipoPublicacion
         $this->nombre = $nombre;
 
         return $this;
-    }
-    public function __toString() {
-        return $this->nombre;
     }
 
     /**
@@ -83,4 +89,47 @@ class TipoPublicacion
 
         return $this;
     }
+
+    public function __toString() {
+        return $this->nombre;
+    }
+
+    /**
+     * @return Collection|Suscripcion[]
+     */
+    public function getSuscripcions(): Collection
+    {
+        return $this->suscripcions;
+    }
+
+    /**
+     * @return Collection|Suscripcion[]
+     */
+    public function getSuscripciones(): Collection
+    {
+        return $this->Suscripciones;
+    }
+
+    public function addSuscripcione(Suscripcion $suscripcione): self
+    {
+        if (!$this->Suscripciones->contains($suscripcione)) {
+            $this->Suscripciones[] = $suscripcione;
+            $suscripcione->setTipoPublicacion($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSuscripcione(Suscripcion $suscripcione): self
+    {
+        if ($this->Suscripciones->removeElement($suscripcione)) {
+            // set the owning side to null (unless already changed)
+            if ($suscripcione->getTipoPublicacion() === $this) {
+                $suscripcione->setTipoPublicacion(null);
+            }
+        }
+
+        return $this;
+    }
+
 }

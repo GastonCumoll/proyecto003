@@ -3,6 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\Suscripcion;
+use App\Entity\TipoPublicacion;
+use App\Entity\Publicacion;
+use App\Entity\Edicion;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -17,6 +20,21 @@ class SuscripcionRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Suscripcion::class);
+    }
+
+
+    /**
+     * @return Publicacion[]
+     */
+    public function buscarTipoPublicacion($usuario): array
+    {
+        $entityManager = $this->getEntityManager();
+        $query = $entityManager->createQuery(
+            'SELECT ediciones FROM App:Publicacion publicaciones, App:Edicion ediciones WHERE (ediciones.publicacion = publicaciones) AND  publicaciones.tipoPublicacion IN (SELECT tipoPublicacion From App:Suscripcion suscripcion, App:TipoPublicacion tipoPublicacion 
+            where suscripcion.usuario = :usuario AND suscripcion.tipoPublicacion = tipoPublicacion)
+            ORDER BY ediciones.fechaYHoraCreacion')
+        ->setParameter('usuario', $usuario);
+        return $query->getResult();
     }
 
     // /**

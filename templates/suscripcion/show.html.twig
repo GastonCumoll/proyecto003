@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'base1.html.twig' %}
 
 {% block title %}Suscripcion{% endblock %}
 
@@ -12,12 +12,16 @@
                 <td>{{ suscripcion.id }}</td>
             </tr>
             <tr>
-                <th>Tipo</th>
-                <td>{{ suscripcion.tipo }}</td>
+                <th>Tipo de suscripción</th>
+                <td>{{ suscripcion.tipoPublicacion }}</td>
             </tr>
             <tr>
-                <th>FechaSuscripcion</th>
+                <th>Fecha de suscripcion</th>
                 <td>{{ suscripcion.fechaSuscripcion ? suscripcion.fechaSuscripcion|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Usuario</th>
+                <td>{{ suscripcion.getUsuario }}</td>
             </tr>
         </tbody>
     </table>
