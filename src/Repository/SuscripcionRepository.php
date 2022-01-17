@@ -38,6 +38,20 @@ class SuscripcionRepository extends ServiceEntityRepository
     }
 
     // /**
+    //  * @return TipoPublicacion[]
+    //  */
+    // public function buscarTipoPublicacion($usuario): array
+    // {
+    //     $entityManager = $this->getEntityManager();
+    //     $query = $entityManager->createQuery(
+    //         'SELECT tipoPublicacion FROM App:Publicacion publicaciones, App:Edicion ediciones WHERE (ediciones.publicacion = publicaciones) AND  publicaciones.tipoPublicacion IN (SELECT tipoPublicacion From App:Suscripcion suscripcion, App:TipoPublicacion tipoPublicacion 
+    //         where suscripcion.usuario = :usuario AND suscripcion.tipoPublicacion = tipoPublicacion)
+    //         ORDER BY ediciones.fechaYHoraCreacion')
+    //     ->setParameter('usuario', $usuario);
+    //     return $query->getResult();
+    //}
+    
+    // /**
     //  * @return Suscripcion[] Returns an array of Suscripcion objects
     //  */
     /*

@@ -3,12 +3,14 @@
 {% block title %}New Edicion{% endblock %}
 
 {% block body %}
-    
-    <h1>Crear Edicion</h1>
-
-    {{ include('edicion/_form.html.twig') }}
-
-    <a href="{{ path('edicion_index') }}">back to list</a>
-
-    
+    <h1 style="text-align:center" class="font-weight-bold">Crear edicion</h1>
+    <div class="container" style="font-family: Arial, Helvetica, sans-serif; margin-top:2rem; font-weight:bold;">
+        <div class="mt-3 p-3 border border-secondary rounded bg-light">
+            {{ include('edicion/_form.html.twig') }}
+        <br>
+        <a href="{{ path('edicion_index') }}">
+            <button type="button" class="btn btn-info"> Back to list <i class="fas fa-arrow-left"></i> </button>  
+        </a>
+        </div>
+    </div>
 {% endblock %}
