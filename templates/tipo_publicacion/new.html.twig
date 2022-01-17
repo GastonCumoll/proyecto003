@@ -3,9 +3,14 @@
 {% block title %}New TipoPublicacion{% endblock %}
 
 {% block body %}
-    <h1>Create new TipoPublicacion</h1>
-
-    {{ include('tipo_publicacion/_form.html.twig') }}
-
-    <a href="{{ path('tipo_publicacion_index') }}">back to list</a>
+    <h1 style="text-align:center" class="font-weight-bold">Crear nuevo tipo de publicacion</h1>
+    <div class="container" style="font-family: Arial, Helvetica, sans-serif; margin-top:2rem; font-weight:bold;">
+        <div class="mt-3 p-3 border border-secondary rounded bg-light">
+            {{ include('tipo_publicacion/_form.html.twig') }}
+            <br>
+            <a href="{{ path('tipo_publicacion_index') }}">
+                <button type="button" class="btn btn-info"> Back to list <i class="fas fa-arrow-left"></i> </button>  
+            </a>
+        </div>
+    </div>
 {% endblock %}

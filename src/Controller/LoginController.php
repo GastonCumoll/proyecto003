@@ -2,13 +2,17 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
+use App\Entity\Suscripcion;
+use Doctrine\ORM\EntityManagerInterface;
+use App\Repository\PublicacionRepository;
+use App\Repository\SuscripcionRepository;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
-use Symfony\Component\HttpFoundation\Request;
-use App\Entity\User;
 
 class LoginController extends AbstractController
 {
@@ -32,7 +36,7 @@ class LoginController extends AbstractController
     /**
      * @Route("/logedIn", name="loged_in")
      */
-    public function logedIn(AuthenticationUtils $authenticationUtils,Request $request):Response{
+    public function logedIn(AuthenticationUtils $authenticationUtils,Request $request,PublicacionRepository $publicacionRepository, SuscripcionRepository $suscripcionRepository, EntityManagerInterface $em):Response{
         $lastUsername = $authenticationUtils->getLastUsername();
 
         $repository=$this->getDoctrine()->getRepository(User::class);
@@ -49,10 +53,18 @@ class LoginController extends AbstractController
         // $usuario=$nombre-findBy(array('email'=>$lastUsername));
         $paginaActiva=1;
 
+
+        $em=$this->getDoctrine()->getManager();
+
+        //En este caso, $publicaciones no tiene las publicaciones sino las ediciones que pertenecen a una determinada publicacion del tipo que el usuario esta suscripto.
+        $publicaciones=$em->getRepository(Suscripcion::class)->buscarTipoPublicacion($min->getId());
+
+
         return $this->render('login/logedIn.html.twig', [
             'user' => $lastUsername,
             'usuario' =>$min,
             'paginaActiva' => $paginaActiva,
+            'publicaciones' => $publicaciones,
         ]);
     }
 

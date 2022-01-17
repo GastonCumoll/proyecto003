@@ -27,9 +27,24 @@
                         <a href="{{ path('tipo_publicacion_edit', {'id': tipo_publicacion.id}) }}">
                             <button type="button" class="btn btn-outline-info" style="width: 7rem;">Edit</button>
                         </a>
-                        <a href="{{ path('nueva_suscripcion', {'id': tipo_publicacion.id}) }}">
-                            <button type="button" class="btn btn-outline-success" style="width: 7rem;">Suscribirse</button>
-                        </a>
+                        {% set suscripto = 0 %}
+                        {% for suscripcion in suscripciones %}
+                            {% if suscripcion.getTipoPublicacion().getId()==tipo_publicacion.id %}
+                                {% set suscripto = 1 %}                       
+                            {% endif %}
+                            
+                        {% endfor %}
+
+                        {% if suscripto==1 %}
+                            <a href="{{ path('nueva_suscripcion', {'id': tipo_publicacion.id}) }}">
+                                <button type="button" class="btn btn-outline-dark" style="width: 7rem;" disabled>Suscripto <i class="fas fa-check"></i></button>
+                            </a>
+                        {% else %}
+                            <a href="{{ path('nueva_suscripcion', {'id': tipo_publicacion.id}) }}">
+                                <button type="button" class="btn btn-outline-success" style="width: 7rem;">Suscribirse</button>
+                            </a>
+                        {% endif %}
+                        
                     </td>
                 </tr>
             {% else %}

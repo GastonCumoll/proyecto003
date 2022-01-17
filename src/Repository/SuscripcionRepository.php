@@ -32,7 +32,7 @@ class SuscripcionRepository extends ServiceEntityRepository
         $query = $entityManager->createQuery(
             'SELECT ediciones FROM App:Publicacion publicaciones, App:Edicion ediciones WHERE (ediciones.publicacion = publicaciones) AND  publicaciones.tipoPublicacion IN (SELECT tipoPublicacion From App:Suscripcion suscripcion, App:TipoPublicacion tipoPublicacion 
             where suscripcion.usuario = :usuario AND suscripcion.tipoPublicacion = tipoPublicacion)
-            ORDER BY ediciones.fechaYHoraCreacion')
+            ORDER BY ediciones.fechaYHoraCreacion DESC' )
         ->setParameter('usuario', $usuario);
         return $query->getResult();
     }

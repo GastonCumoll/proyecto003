@@ -12,6 +12,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use App\Entity\User;
+use App\Repository\SuscripcionRepository;
+use App\Entity\Suscripcion;
 
 /**
  * @Route("/tipo/publicacion")
@@ -26,11 +28,13 @@ class TipoPublicacionController extends AbstractController
         $lastUsername = $authenticationUtils->getLastUsername();
         $repository=$this->getDoctrine()->getRepository(User::class);
         $min = $repository->findOneBy(['email'=>$lastUsername]);
+        $suscripciones=$this->getDoctrine()->getRepository(Suscripcion::class)->findBy(['usuario'=>$min]);
 
         return $this->render('tipo_publicacion/index.html.twig', [
             'tipo_publicacions' => $tipoPublicacionRepository->findAll(),
             'usuario' =>$min,
             'user' =>$lastUsername,
+            'suscripciones'=>$suscripciones,
         ]);
     }
 
