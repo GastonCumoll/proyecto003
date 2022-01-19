@@ -3,8 +3,8 @@
 {% block title %}Publicacion index{% endblock %}
 
 {% block body %}
-
-{% for publicacion in publicaciones %}
+<h1 class="text-center">Mis Publicaciones</h1>
+{% for publicacion in publicaciones | reverse %}
 <div class="container mt-3 mb-3">
     <div class="card text-center shadow mb-5 bg-white rounded">
         <div class="card-header">

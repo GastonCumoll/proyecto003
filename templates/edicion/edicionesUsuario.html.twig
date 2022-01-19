@@ -3,8 +3,8 @@
 {% block title %}Mis ediciones{% endblock %}
 
 {% block body %}
-
-{% for edicion in ediciones %}
+<h1 class="text-center">Mis Ediciones</h1>
+{% for edicion in ediciones | reverse %}
 <div class="container mt-3 mb-3">
     <div class="card text-center shadow mb-5 bg-white rounded">
         <div class="card-header">

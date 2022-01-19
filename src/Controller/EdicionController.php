@@ -58,23 +58,21 @@ class EdicionController extends AbstractController
             $form->handleRequest($request);
 
             $ediciones=$this->getDoctrine()->getRepository(edicion::class)->findAll();
-
-        if ($form->isSubmitted() && $form->isValid()) {
-
-            foreach( $ediciones as $unaEdicion)
-            {
-                if($unaEdicion->getFechaDeEdicion()==$edicion->getFechaDeEdicion())
-                {
-                    return $this->redirectToRoute('edicion_index', [], Response::HTTP_SEE_OTHER);
-                }
-            }
-            
             $today= new DateTime();
-            $edicion->setFechaYHoraCreacion($today);
-            $entityManager->persist($edicion);
-            $entityManager->flush();
+            if ($form->isSubmitted() && $form->isValid()) {
+                foreach( $ediciones as $unaEdicion)
+                {
+                    if(($unaEdicion->getFechaDeEdicion()==$edicion->getFechaDeEdicion()) || ($edicion->getCantidadImpresiones()<0) || ($edicion->getFechaDeEdicion()>$today))
+                    {
+                        return $this->redirectToRoute('edicion_index', [], Response::HTTP_SEE_OTHER);
+                    }
+                }
             
-            return $this->redirectToRoute('edicion_index', [], Response::HTTP_SEE_OTHER);
+                $edicion->setFechaYHoraCreacion($today);
+                $entityManager->persist($edicion);
+                $entityManager->flush();
+            
+                return $this->redirectToRoute('edicion_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('edicion/new.html.twig', [
