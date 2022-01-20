@@ -1,55 +1,6 @@
 {% extends 'base.html.twig' %}
 {% block nav %}
 
-<!--<ul class="nav nav-tabs bg-light text-dark">
-    <li class="nav-item">
-        <a class="nav-link" href="{{path('loged_in')}}">
-            <i class="fas fa-home" style></i>
-            Home</a>
-    </li>
-    {% for unRol in usuario.roles %}
-    {% if unRol == "ROLE_ADMIN" %}
-    <li class="nav-item">
-    <a class="nav-link" href="{{path('publicacion_index')}}">
-        <i class="fas fa-file-signature"></i>
-        Cargar Publicacion</a>
-    </li>
-
-    <li class="nav-item">
-        <a class="nav-link" href="{{path('edicion_index')}}">
-            <i class="fas fa-file-signature"></i>
-            Cargar Edicion</a>
-        </li>
-    {% endif %}
-    {% endfor %}
-    <li class="nav-item">
-        <a class="nav-link" href="{{path('suscripcion_index')}}">
-            <i class="fas fa-desktop"></i>
-            Ver Suscripciones</a>
-    </li>
-    
-    {% for unRol in usuario.roles %}
-    {% if unRol == "ROLE_ADMIN" %}
-    <a class="nav-link" href="{{path('user_index')}}">
-        <i class="fas fa-user-friends"></i>
-        Ver Usuarios</a>
-    </li>
-    {% endif %}
-    {% endfor %}
-    
-    <div class="dropdown text-end" style=" margin-left:auto">
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-            aria-expanded="false">
-            <i class="far fa-user"></i> {{app.session.get('name')}}
-        </button>
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <a class="dropdown-item" href="{{path('user_edit',{'id':usuario.id})}}"><i
-                    class="fas fa-edit"></i> Cambiar Contraseña</a>
-            <a class="dropdown-item" href="{{path('app_logout')}}"><i class="fas fa-sign-out-alt"></i> Salir</a>
-        </div>
-    </div>
-    </li>
-</ul>-->
 
 <ul class="nav nav-tabs bg-light text-dark mr-1 ml-1">
     <li class="nav-item">

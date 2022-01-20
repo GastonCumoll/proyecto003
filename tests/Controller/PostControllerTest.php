@@ -14,15 +14,16 @@ class PostControllerTest extends WebTestCase
     {
         $client = static::createClient();
 
-        $client->request('GET', '/register ');
-        $crawler = $client->request('GET', '/register');
-        //$client->getResponse()->getContent();
-        //dd($crawler);
+        $client->request('GET', '/publicaciones');
+        $crawler = $client->request('GET', '/publicaciones');
+         //$client->getResponse()->getContent();
+         //dd($crawler);
 
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        $this->assertSelectorTextContains('h1', 'Register');
+        //$this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $this->assertSelectorTextContains('h1', 'Publicaciones');
 
-
+        //------------------------------------------------------------------------------------
+        
     //     $form = $crawler->selectButton('Register')->form();
     //     dd($client->getResponse()->getContent());
     //  // set some values
@@ -37,7 +38,7 @@ class PostControllerTest extends WebTestCase
 
     }
     //prueba para ver si existe el user
-    public function testVisitingWhileLoggedIn()
+    public function VisitingWhileLoggedIn()
     {
         $client = static::createClient();
         $userRepository = static::$container->get(UserRepository::class);
@@ -50,33 +51,39 @@ class PostControllerTest extends WebTestCase
 
         // test e.g. the profile page
         $client->request('GET', '/login');
-        $this->assertResponseIsSuccessful();
+        
         $this->assertSelectorTextContains('title', 'Login');
     }
 
-    public function testRegister()
+
+
+
+
+    public function Register()
     {
         $client = static::createClient();
 
-        $client->request('GET', '/register ');
-        $crawler = $client->request('GET', '/register');
-        //$client->getResponse()->getContent();
-        //dd($crawler);
-        $buttonCrawlerNode = $crawler->selectButton('Register')->form();
 
-// retrieve the Form object for the form belonging to this button
-        $form = $buttonCrawlerNode->form();
 
-// set values on a form object
-        $form['[email]'] = 'Gastoncumoll123@gmail.com';
-        $form['[agreeTerms]'] = true;
-        $form['[plainPassword]'] = 'contraseña';
+        $crawler=$client->request('GET', '/suscripcion/new');
+        $form = $crawler->selectButton('save');
+        //$form = $crawler->filter('fas fa-save');
+        
+
+        //dd($buttonCrawlerNode);
+        
+
+        $crawler = $client->submitForm('submit', [
+            'suscripcion/new[tipoPublicacion]' =>('Libro'),
+            'suscripcion/new[usuario]' =>('gaston@hotmail.com'),
+        ]);
 
 
         // submit the Form object
-        $client->submit($form);
+        $crawler = $client->submit($form);
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $this->assertSelectorTextContains('h1', 'Register');
     }
+    
 }
