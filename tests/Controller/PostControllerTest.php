@@ -15,7 +15,7 @@ class PostControllerTest extends WebTestCase
         $client = static::createClient();
 
         $client->request('GET', '/publicaciones');
-        $crawler = $client->request('GET', '/publicaciones');
+        //$crawler = $client->request('GET', '/publicaciones');
          //$client->getResponse()->getContent();
          //dd($crawler);
 
@@ -38,7 +38,7 @@ class PostControllerTest extends WebTestCase
 
     }
     //prueba para ver si existe el user
-    public function VisitingWhileLoggedIn()
+    public function testVisitingWhileLoggedIn()
     {
         $client = static::createClient();
         $userRepository = static::$container->get(UserRepository::class);
@@ -56,10 +56,20 @@ class PostControllerTest extends WebTestCase
     }
 
 
+    public function testRoleUser()
+    {
+        $client = static::createClient();
+        $client->request('GET', '/logedIn');
+        dd($client);
+        $response = $this->client->getResponse();
+        
+        $expectedContent = ' ROLE_USER ';
+
+        $this->assertEquals($expectedCode, $this->client->getResponse()->getStatusCode());
+    }
 
 
-
-    public function Register()
+    public function testRegister()
     {
         $client = static::createClient();
 
