@@ -44,7 +44,7 @@ security:
         - { path: ^/mailer, roles: ROLE_USER }
         # - { path: ^/publicacion, roles: ROLE_USER }
         # - { path: ^/suscripcion, roles: ROLE_USER }
-        - { path: ^/tipo/publicacion, roles: ROLE_USER }
+        # - { path: ^/tipo/publicacion, roles: ROLE_USER }
         - { path: ^/user, roles: ROLE_USER }
         # - { path: ^/new, roles: ROLE_ADMIN }
         - { path: ^/edit, roles: ROLE_ADMIN }

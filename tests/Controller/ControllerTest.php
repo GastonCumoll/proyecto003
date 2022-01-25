@@ -100,7 +100,7 @@ class ControllerTest extends WebTestCase
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
     }
 
-    public function testEdicionNew(): void
+    public function EdicionNew(): void
     {
         $client = static::createClient();
         
@@ -128,6 +128,31 @@ class ControllerTest extends WebTestCase
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
     }
 
+    public function testTipoPublicacionNew(): void
+    {
+        $client = static::createClient();
+        
+        $userRepository = static::getContainer()->get(UserRepository::class);
+        $testUser = $userRepository->findOneByEmail('gastoncumoll@gmail.com');
+        
+        
+        $client->loginUser($testUser);
+        
+        $crawler = $client->request('GET', '/tipo/publicacion/new');
+        //$crawler = $client->followRedirect();
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+
+        $buttonCrwalerNode = $crawler->selectButton('Save');
+        $form =$buttonCrwalerNode->form();
+
+        $form['tipo_publicacion[nombre]']='Periodico';
+
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $client->submit($form);
+
+        $crawler = $client->followRedirect();
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+    }
 }
 
 
