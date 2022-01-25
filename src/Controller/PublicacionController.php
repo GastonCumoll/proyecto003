@@ -31,7 +31,7 @@ class PublicacionController extends AbstractController
      */
     public function index(PublicacionRepository $publicacionRepository, AuthenticationUtils $authenticationUtils): Response
     {   
-        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+        //$this->denyAccessUnlessGranted('ROLE_ADMIN');
         
         $lastUsername = $authenticationUtils->getLastUsername();
         $repository=$this->getDoctrine()->getRepository(User::class);
@@ -49,7 +49,7 @@ class PublicacionController extends AbstractController
      */
     public function new(Request $request, EntityManagerInterface $entityManager, AuthenticationUtils $authenticationUtils): Response
     {   
-        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+        //$this->denyAccessUnlessGranted('ROLE_ADMIN');
 
         $lastUsername = $authenticationUtils->getLastUsername();
         $repository=$this->getDoctrine()->getRepository(User::class);

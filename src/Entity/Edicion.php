@@ -20,7 +20,7 @@ class Edicion
     private $id;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private $fechaDeEdicion;
 

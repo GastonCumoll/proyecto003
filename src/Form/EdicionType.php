@@ -14,7 +14,7 @@ class EdicionType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('fechaDeEdicion')
+            //->add('fechaDeEdicion')
             ->add('cantidadImpresiones')
             //->add('fechaYHoraCreacion')
             ->add('publicacion')
