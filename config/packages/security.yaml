@@ -38,15 +38,15 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        - { path: ^/admin, roles: ROLE_ADMIN }
+        # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/edicion, roles: ROLE_USER }
-        - { path: ^/logedIn, roles: ROLE_USER }
-        - { path: ^/mailer, roles: ROLE_USER }
+        # - { path: ^/logedIn, roles: ROLE_USER }
+        # - { path: ^/mailer, roles: ROLE_USER }
         # - { path: ^/publicacion, roles: ROLE_USER }
         # - { path: ^/suscripcion, roles: ROLE_USER }
         # - { path: ^/tipo/publicacion, roles: ROLE_USER }
-        - { path: ^/user, roles: ROLE_USER }
+        # - { path: ^/user, roles: ROLE_USER }
         # - { path: ^/new, roles: ROLE_ADMIN }
-        - { path: ^/edit, roles: ROLE_ADMIN }
-        - { path: ^/delete, roles: ROLE_ADMIN }
+        # - { path: ^/edit, roles: ROLE_ADMIN }
+        # - { path: ^/delete, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }

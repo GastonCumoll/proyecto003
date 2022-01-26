@@ -165,7 +165,7 @@ class PublicacionController extends AbstractController
      */
     public function edit(Request $request, Publicacion $publicacion, EntityManagerInterface $entityManager, AuthenticationUtils $authenticationUtils): Response
     {
-        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+        //$this->denyAccessUnlessGranted('ROLE_ADMIN');
 
         $lastUsername = $authenticationUtils->getLastUsername();
         $repository=$this->getDoctrine()->getRepository(User::class);
@@ -193,7 +193,7 @@ class PublicacionController extends AbstractController
      */
     public function delete(Request $request, Publicacion $publicacion, EntityManagerInterface $entityManager): Response
     {
-        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+        //$this->denyAccessUnlessGranted('ROLE_ADMIN');
         
         if ($this->isCsrfTokenValid('delete'.$publicacion->getId(), $request->request->get('_token'))) {
             $entityManager->remove($publicacion);

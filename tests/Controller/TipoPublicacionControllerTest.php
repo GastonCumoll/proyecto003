@@ -6,9 +6,9 @@ use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 
-class SuscripcionControllerTest extends WebTestCase
+class TipoPublicacionControllerTest extends WebTestCase
 {
-    public function testSuscripcionNew(): void
+    public function testTipoPublicacionNew(): void
     {
         $client = static::createClient();
         
@@ -16,21 +16,22 @@ class SuscripcionControllerTest extends WebTestCase
         $testUser = $userRepository->findOneByEmail('gastoncumoll@gmail.com');
         
         $client->loginUser($testUser);
+        
         //index
-        $crawler = $client->request('GET', '/suscripcion');
+        $crawler = $client->request('GET', '/tipo/publicacion');
         $crawler = $client->followRedirect();
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        
-        //new
-        $crawler = $client->request('GET', '/suscripcion/new');
+        // $crawler = $client->followRedirect();
+
+        //new 
+        $crawler = $client->request('GET', '/tipo/publicacion/new');
+
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
 
         $buttonCrwalerNode = $crawler->selectButton('Save');
         $form =$buttonCrwalerNode->form();
 
-        $form['suscripcion[usuario]']='505';
-        $form['suscripcion[tipoPublicacion]']='1';//busca por id
-        
+        $form['tipo_publicacion[nombre]']='Periodico de Prueba_3';
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $client->submit($form);
@@ -38,16 +39,15 @@ class SuscripcionControllerTest extends WebTestCase
         $crawler = $client->followRedirect();
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
 
-        //edit
-        $crawler = $client->request('GET', '/suscripcion/3/edit');
+        //edit 
+        $crawler = $client->request('GET', '/tipo/publicacion/5/edit');
+
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
 
         $buttonCrwalerNode = $crawler->selectButton('Update');
         $form =$buttonCrwalerNode->form();
 
-        $form['suscripcion[usuario]']='505';
-        $form['suscripcion[tipoPublicacion]']='2';//busca por id
-        
+        $form['tipo_publicacion[nombre]']='Periodico de Prueba_2_Editado';
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $client->submit($form);
@@ -56,8 +56,7 @@ class SuscripcionControllerTest extends WebTestCase
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
 
         //delete
-        
-        $crawler = $client->request('GET', '/suscripcion/5/edit');
+        $crawler = $client->request('GET', '/tipo/publicacion/8/edit');
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
 
         $buttonCrwalerNode = $crawler->selectButton('Delete');
@@ -65,5 +64,6 @@ class SuscripcionControllerTest extends WebTestCase
         $client->submit($form);
         $crawler = $client->followRedirect();
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
+
     }
 }
