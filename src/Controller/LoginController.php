@@ -37,6 +37,7 @@ class LoginController extends AbstractController
      * @Route("/logedIn", name="loged_in")
      */
     public function logedIn(AuthenticationUtils $authenticationUtils,Request $request,PublicacionRepository $publicacionRepository, SuscripcionRepository $suscripcionRepository, EntityManagerInterface $em):Response{
+    
         $lastUsername = $authenticationUtils->getLastUsername();
 
         $repository=$this->getDoctrine()->getRepository(User::class);
@@ -44,11 +45,12 @@ class LoginController extends AbstractController
         $session=$request->getSession();
         $session->set('name',$lastUsername);
         $session->set('id',$min->getId());
+
         
         
 
         
-        //dd($min);
+        // dd($min);
         // $nombre = $this->getDoctrine()->getRepository(Usuario::class);
         // $usuario=$nombre-findBy(array('email'=>$lastUsername));
         $paginaActiva=1;

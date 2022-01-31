@@ -16,11 +16,12 @@ class RegisterControllerTest extends WebTestCase
         $buttonCrwalerNode = $crawler->selectButton('Register');
         $form =$buttonCrwalerNode->form();
 
-        $form['registration_form[email]']='UserPrueba_0@gmail.com';
+        $form['registration_form[email]']='ADMINISTRADOR_TEST@admin.com';
         $form['registration_form[agreeTerms]']=true;
         $form['registration_form[plainPassword]']='contraseña';
         
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        
         
         $client->submit($form);
     }
